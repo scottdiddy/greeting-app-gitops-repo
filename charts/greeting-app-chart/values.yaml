@@ -1,0 +1,7 @@
+replicaCount: 1
+image:
+  repository: greeting-app-image
+  tag: "0.1.0"
+greeting: "Hello"
+service:
+  port: 80
