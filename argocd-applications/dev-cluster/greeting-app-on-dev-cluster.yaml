@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1aplpha1
+kind: Application
+meta-data:
+  name: greeting-app-on-dev-cluster
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/scottdiddy/greeting-app-gitops-repo.git
+    targetRevision: main
+    path: charts/greeting-app-chart
+    helm:
+      releaseName: greeting-app
+      valueFiles:
+        - values-for-dev.yaml
+  destination:
+    server: https://kubernetes.default.svc # means "the cluster ArgoCD itself runs in"
+    namespace: greeting-app-namespace
+  syncPolicy:
+    automated:
+      prune: true # delete things from the cluster that were removed from Git
+      selfHeal: true 
+    syncOptions:
+      - CreateNamespace=true
