@@ -1,0 +1,4 @@
+replicaCount: 3
+greeting: "Hello from the prod cluster"
+image:
+  tag: "0.2.0"
